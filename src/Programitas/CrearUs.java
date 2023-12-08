@@ -5,10 +5,11 @@
 package Programitas;
 
 import BRAIN.FolderManager;
-import BRAIN.Usuarios;
+
 import HOME.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,8 +25,11 @@ public class CrearUs extends javax.swing.JInternalFrame {
      */
     static String user;
     static String pass;
-
-    public CrearUs() {
+    protected RandomAccessFile Acc;
+    public CrearUs()throws IOException {
+        
+        Acc = new RandomAccessFile("users/usuarios.sop","rw") ;
+        
         initComponents();
     }
 
@@ -123,6 +127,17 @@ public class CrearUs extends javax.swing.JInternalFrame {
     private void CreateUserFoldersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateUserFoldersActionPerformed
         user = US.getText();
         pass = PASS.getText();
+        
+        try {
+            if(crearAccount(user,pass)){
+                JOptionPane.showMessageDialog(this, "Usuario creado exitosamente");
+            }else{
+                 JOptionPane.showMessageDialog(this, "Usuario no creado, ha ocurrido un error");
+            }
+            
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
 
 
     }//GEN-LAST:event_CreateUserFoldersActionPerformed
@@ -138,6 +153,51 @@ public class CrearUs extends javax.swing.JInternalFrame {
         imagenes.mkdir();
         
     }
+    
+    public void writeAccount(String us, String pw)throws IOException{
+        //Formato: String username, String password
+        Acc.seek(Acc.length());
+        Acc.writeUTF(us);
+        Acc.writeUTF(pw);
+        
+    }
+    
+    public boolean verificarUnico(String us)throws IOException{
+        Acc.seek(0);
+        while(Acc.getFilePointer()<Acc.length()){
+            if(Acc.readUTF().equals(us)){
+                return false;
+            }
+            Acc.readUTF();
+        }
+        return true;
+    }
+    
+     public boolean LogInAcc(String us,String pass)throws IOException{
+        Acc.seek(0);
+        while(Acc.getFilePointer()<Acc.length()){
+            if(Acc.readUTF().equals(us)){
+                if(Acc.readUTF().equals(pass)){
+                     return true;
+                }else{
+                        return false;
+                }
+               
+            }
+            Acc.readUTF();
+        }
+        return false;
+    }
+   
+    public boolean crearAccount(String username, String pass) throws IOException{
+        if(verificarUnico(username)){
+            writeAccount(username,pass);
+            crearFolderAccount(username);
+            return true;
+        }
+        return false;
+    }
+    
 
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed

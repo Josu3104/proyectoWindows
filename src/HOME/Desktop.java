@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import visualizador.Media;
 
 /**
  *
@@ -63,6 +64,7 @@ public class Desktop extends javax.swing.JFrame {
     ExploradorDeArchivos files = new ExploradorDeArchivos();
     CrearUs create = new CrearUs();
     Editor word = new Editor();
+    Media img = new Media();
 
     //FIN DEL MP3
     /**
@@ -80,7 +82,7 @@ public class Desktop extends javax.swing.JFrame {
         FILES = new javax.swing.JButton();
         JTUNES = new javax.swing.JButton();
         Word = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        MEDIA = new javax.swing.JButton();
         OPCWINBUTTON = new javax.swing.JPanel();
         CREARUSER = new javax.swing.JButton();
         OFF = new javax.swing.JButton();
@@ -139,17 +141,17 @@ public class Desktop extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         BarraTareas.add(Word, gridBagConstraints);
 
-        jButton5.setText("Media");
-        jButton5.setPreferredSize(new java.awt.Dimension(80, 60));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        MEDIA.setText("Media");
+        MEDIA.setPreferredSize(new java.awt.Dimension(80, 60));
+        MEDIA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                MEDIAActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
-        BarraTareas.add(jButton5, gridBagConstraints);
+        BarraTareas.add(MEDIA, gridBagConstraints);
 
         WholeDesktop.add(BarraTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1000, 1850, 60));
 
@@ -318,9 +320,15 @@ public class Desktop extends javax.swing.JFrame {
         userCreated = false;
     }//GEN-LAST:event_CREARUSERActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void MEDIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEDIAActionPerformed
+       try{
+           WholeDesktop.add(img);
+           
+       }catch(Exception e){
+           System.out.println(e.getMessage());
+       }
+       img.setVisible(true);
+    }//GEN-LAST:event_MEDIAActionPerformed
 
     private void ArbFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTree1FocusGained
 
@@ -334,13 +342,17 @@ public class Desktop extends javax.swing.JFrame {
         files.nombre = this.USERFIELD.getText();
         files.tipo = this.USERFIELD.getText();
 
-        if (LoggedUser.equals("admin") && pass.equals("admin")) {
-            Login.setVisible(false);
-            USERFIELD.setText("");
-            PASSFIELD.setText("");
-            WholeDesktop.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña invalidos");
+        try {
+            if ((LoggedUser.equals("admin") && pass.equals("admin"))||create.LogInAcc(LoggedUser,pass)) {
+                Login.setVisible(false);
+                USERFIELD.setText("");
+                PASSFIELD.setText("");
+                WholeDesktop.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña invalidos");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Desktop.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -416,6 +428,7 @@ public class Desktop extends javax.swing.JFrame {
     private javax.swing.JButton LOGBTN;
     private javax.swing.JButton LOGOUT;
     private javax.swing.JPanel Login;
+    private javax.swing.JButton MEDIA;
     private javax.swing.JButton OFF;
     private javax.swing.JPanel OPCWINBUTTON;
     private javax.swing.JTextField PASSFIELD;
@@ -424,6 +437,5 @@ public class Desktop extends javax.swing.JFrame {
     private javax.swing.JButton WIN;
     private javax.swing.JDesktopPane WholeDesktop;
     private javax.swing.JButton Word;
-    private javax.swing.JButton jButton5;
     // End of variables declaration//GEN-END:variables
 }
