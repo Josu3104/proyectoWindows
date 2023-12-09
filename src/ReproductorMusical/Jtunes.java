@@ -38,6 +38,7 @@ public class Jtunes extends javax.swing.JInternalFrame {
         jPlaylist = new javax.swing.JList<>();
         btnplay = new javax.swing.JButton();
         btnstop = new javax.swing.JButton();
+        btnstop1 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("MUSIC PLAYER");
@@ -93,13 +94,21 @@ public class Jtunes extends javax.swing.JInternalFrame {
         });
         MP3.add(btnplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 92, 84, 68));
 
-        btnstop.setText("Stop");
+        btnstop.setText("Pause");
         btnstop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnstopActionPerformed(evt);
             }
         });
-        MP3.add(btnstop, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 219, 84, 68));
+        MP3.add(btnstop, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 84, 68));
+
+        btnstop1.setText("Stop");
+        btnstop1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnstop1ActionPerformed(evt);
+            }
+        });
+        MP3.add(btnstop1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 84, 68));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,10 +130,6 @@ public class Jtunes extends javax.swing.JInternalFrame {
         AñadirCancion();
     }//GEN-LAST:event_btnaddActionPerformed
 
-    private void btnremoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnremoveActionPerformed
-        QuitarCancion();
-    }//GEN-LAST:event_btnremoveActionPerformed
-
     private void btnplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnplayActionPerformed
 
         Reproducir();
@@ -143,6 +148,14 @@ public class Jtunes extends javax.swing.JInternalFrame {
        Desktop.contBotonJtunes++;
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void btnstop1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstop1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnstop1ActionPerformed
+
+    private void btnremoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnremoveActionPerformed
+        QuitarCancion();
+    }//GEN-LAST:event_btnremoveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MP3;
@@ -150,6 +163,7 @@ public class Jtunes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnplay;
     private javax.swing.JButton btnremove;
     private javax.swing.JButton btnstop;
+    private javax.swing.JButton btnstop1;
     private javax.swing.JList<String> jPlaylist;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
@@ -175,6 +189,8 @@ public class Jtunes extends javax.swing.JInternalFrame {
 
         }
         jPlaylist.setModel(model);
+       
+        
 
     }
 

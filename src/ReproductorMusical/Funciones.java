@@ -28,8 +28,8 @@ public class Funciones {
         
         else if(fileValid==javax.swing.JFileChooser.APPROVE_OPTION) {
             
-            File[] file=ArchivoSeleccionado.getSelectedFiles();
-            Canciones.addAll(Arrays.asList(file));
+            File[] rolitasSeleccionadas=ArchivoSeleccionado.getSelectedFiles();
+            Canciones.addAll(Arrays.asList(rolitasSeleccionadas));
             
         }
         
