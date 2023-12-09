@@ -39,12 +39,25 @@ public class Desktop extends javax.swing.JFrame {
     public static int contBotonFiles = 2;
     public static int contBotonJtunes = 2;
     public static int contBotonWord = 2;
+    
+    Jtunes tunes;
+    ExploradorDeArchivos files;
+    CrearUs create;
+    Editor word;
+    Media img;
 
     public Desktop() throws IOException {
         filesAdded = true;
         tunesAdded = true;
         userCreated = true;
         wordAdded = true;
+        
+         tunes = new Jtunes();
+        files =new ExploradorDeArchivos();
+        create = new CrearUs();
+        word = new Editor();
+        img = new Media();
+ 
         initComponents();
 
         L.CrearZyAdmin();
@@ -60,11 +73,7 @@ public class Desktop extends javax.swing.JFrame {
 
     }
 
-    Jtunes tunes = new Jtunes();
-    ExploradorDeArchivos files = new ExploradorDeArchivos();
-    CrearUs create = new CrearUs();
-    Editor word = new Editor();
-    Media img = new Media();
+    
 
     //FIN DEL MP3
     /**
@@ -96,7 +105,6 @@ public class Desktop extends javax.swing.JFrame {
         PASSFIELD = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         WholeDesktop.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -153,7 +161,7 @@ public class Desktop extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         BarraTareas.add(MEDIA, gridBagConstraints);
 
-        WholeDesktop.add(BarraTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 1000, 1850, 60));
+        WholeDesktop.add(BarraTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, 1850, 60));
 
         CREARUSER.setText("Crear Usuario");
         CREARUSER.setPreferredSize(new java.awt.Dimension(160, 41));
@@ -196,7 +204,7 @@ public class Desktop extends javax.swing.JFrame {
                 .addContainerGap(155, Short.MAX_VALUE))
         );
 
-        WholeDesktop.add(OPCWINBUTTON, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 710, 160, 290));
+        WholeDesktop.add(OPCWINBUTTON, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 160, 290));
 
         WIN.setText("W");
         WIN.setPreferredSize(new java.awt.Dimension(80, 60));
@@ -205,7 +213,7 @@ public class Desktop extends javax.swing.JFrame {
                 WINActionPerformed(evt);
             }
         });
-        WholeDesktop.add(WIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1000, 70, -1));
+        WholeDesktop.add(WIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 70, -1));
 
         getContentPane().add(WholeDesktop, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -321,13 +329,13 @@ public class Desktop extends javax.swing.JFrame {
     }//GEN-LAST:event_CREARUSERActionPerformed
 
     private void MEDIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEDIAActionPerformed
-       try{
-           WholeDesktop.add(img);
-           
-       }catch(Exception e){
-           System.out.println(e.getMessage());
-       }
-       img.setVisible(true);
+//       try{
+//           WholeDesktop.add(img);
+//           
+//       }catch(Exception e){
+//           System.out.println(e.getMessage());
+//       }
+//       img.setVisible(true);
     }//GEN-LAST:event_MEDIAActionPerformed
 
     private void ArbFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTree1FocusGained

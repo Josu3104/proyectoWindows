@@ -37,13 +37,13 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
     String sort = "Default";
 
     public ExploradorDeArchivos() {
-        initComponents();
         File rootDirectory = new File("/");
         fileSystemModel = new tipoArchivo(rootDirectory);
         Name = new nombre(rootDirectory);
         Date = new fechas(rootDirectory);
         Type = new tipo(rootDirectory);
         Size = new tamaño(rootDirectory);
+        initComponents();
 
         JMenuItem copyItem = new JMenuItem("Copiar");
         JMenuItem cutItem = new JMenuItem("Cortar");
@@ -143,7 +143,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 }
             }
         });
-        
+
         organizar.setAction(new AbstractAction("Organizar") {
             public void actionPerformed(ActionEvent e) {
                 selectedFile = (File) jTree1.getLastSelectedPathComponent();
@@ -154,8 +154,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 }
             }
         });
-        
-        
+
         sortName.setAction(new AbstractAction("Ver por Nombre") {
             public void actionPerformed(ActionEvent e) {
                 sortbyName();
@@ -477,7 +476,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
         }
     }
 
-    private void rename(File file, String string) throws IOException,NullPointerException{
+    private void rename(File file, String string) throws IOException, NullPointerException {
         System.out.println("Adios");
         switch (sort) {
             case "name":

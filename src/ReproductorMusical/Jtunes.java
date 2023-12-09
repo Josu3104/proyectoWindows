@@ -21,8 +21,10 @@ public class Jtunes extends javax.swing.JInternalFrame {
     /**
      * Creates new form Jtunes
      */
+        Funciones nose;
     public Jtunes() {
         initComponents();
+         nose= new Funciones();
 
     }
 
@@ -169,7 +171,7 @@ public class Jtunes extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 //MP33333333333
-    Funciones nose = new Funciones();
+
 
     public ArrayList ListaCanciones = new ArrayList();
     private int posicionDeReproduccion = 0;

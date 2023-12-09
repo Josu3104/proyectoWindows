@@ -52,8 +52,7 @@ public class Funciones {
         
         if (Valid==javax.swing.JFileChooser.CANCEL_OPTION) {
             
-            return;
-            
+           
         } 
         
         else if(Valid==javax.swing.JFileChooser.APPROVE_OPTION) {

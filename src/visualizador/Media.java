@@ -172,7 +172,7 @@ public class Media extends javax.swing.JInternalFrame {
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         try {
             JFileChooser file = new JFileChooser();
-            file.setCurrentDirectory(new File());
+            //setCurrentDirecotry va aqui xd
             FileNameExtensionFilter filter = new FileNameExtensionFilter("All Pic", "png", "jpeg", "gif");
             file.addChoosableFileFilter(filter);
             int a = file.showSaveDialog(null);

@@ -188,7 +188,7 @@ public class Twitt extends javax.swing.JInternalFrame {
     private void CrearUsuarioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearUsuarioBotonActionPerformed
         // TODO add your handling code here:
         try {
-            if (twit.crearCuenta(USER.getText(), PASS.getText(), SEX.getText().charAt(0), 93493434L, 19)) {
+            if (twit.crearCuenta(USER.getText(), PASS.getText(), 'M', 93493434L, 19)) {
                 JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente");
             }else{
                 JOptionPane.showMessageDialog(null, "No se pudo crear la cuenta bruv");
