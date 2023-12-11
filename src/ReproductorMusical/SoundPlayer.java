@@ -287,7 +287,7 @@ public class SoundPlayer extends javax.swing.JInternalFrame {
         controlPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         pauseBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pauseBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\imagessoundmusic\\pause.png")); // NOI18N
+        pauseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagessoundmusic/pause.png"))); // NOI18N
         pauseBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pauseBtnMouseClicked(evt);
@@ -295,7 +295,7 @@ public class SoundPlayer extends javax.swing.JInternalFrame {
         });
 
         playBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\imagessoundmusic\\play.png")); // NOI18N
+        playBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagessoundmusic/play.png"))); // NOI18N
         playBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 playBtnMouseClicked(evt);
@@ -303,7 +303,7 @@ public class SoundPlayer extends javax.swing.JInternalFrame {
         });
 
         stopBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        stopBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\imagessoundmusic\\stop.png")); // NOI18N
+        stopBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagessoundmusic/stop.png"))); // NOI18N
         stopBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 stopBtnMouseClicked(evt);
@@ -313,7 +313,7 @@ public class SoundPlayer extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         volumeDownBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        volumeDownBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\imagessoundmusic\\volume_down.png")); // NOI18N
+        volumeDownBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagessoundmusic/volume_down.png"))); // NOI18N
         volumeDownBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volumeDownBtnMouseClicked(evt);
@@ -321,7 +321,7 @@ public class SoundPlayer extends javax.swing.JInternalFrame {
         });
 
         volumeUpBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        volumeUpBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\imagessoundmusic\\volume_up.png")); // NOI18N
+        volumeUpBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagessoundmusic/volume_up.png"))); // NOI18N
         volumeUpBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volumeUpBtnMouseClicked(evt);
@@ -329,7 +329,7 @@ public class SoundPlayer extends javax.swing.JInternalFrame {
         });
 
         volumeFullBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        volumeFullBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\imagessoundmusic\\volume_full.png")); // NOI18N
+        volumeFullBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagessoundmusic/volume_full.png"))); // NOI18N
         volumeFullBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 volumeFullBtnMouseClicked(evt);
@@ -337,7 +337,7 @@ public class SoundPlayer extends javax.swing.JInternalFrame {
         });
 
         muteBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        muteBtn.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\imagessoundmusic\\mute.png")); // NOI18N
+        muteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagessoundmusic/mute.png"))); // NOI18N
         muteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 muteBtnMouseClicked(evt);

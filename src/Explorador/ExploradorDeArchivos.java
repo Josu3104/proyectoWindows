@@ -47,7 +47,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
     String sort = "Default";
 
     public ExploradorDeArchivos() {
-        File rootDirectory = new File("/Z");
+        File rootDirectory = new File("/");
         fileSystemModel = new tipoArchivo(rootDirectory);
         Name = new nombre(rootDirectory);
         Date = new fechas(rootDirectory);
@@ -60,7 +60,6 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
         JMenuItem cutItem = new JMenuItem("Cortar");
         JMenuItem pasteItem = new JMenuItem("Pegar");
         JMenuItem rename = new JMenuItem("Renombrar");
-         JMenuItem openFile = new JMenuItem("Abrir con Editor de Texto");
 
         JMenuItem refreshyep = new JMenuItem("Refrescar");
         JMenuItem createfile = new JMenuItem("Nuevo Archivo");
@@ -70,7 +69,6 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
         JMenuItem sortDate = new JMenuItem("Ver por Fecha");
         JMenuItem sortType = new JMenuItem("Ver por Tipo");
         JMenuItem sortSize = new JMenuItem("Ver por Tamaño");
-        popupMenu.add(openFile);
         popupMenu.add(copyItem);
         popupMenu.add(cutItem);
         popupMenu.add(pasteItem);
@@ -189,26 +187,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 SortbySize();
             }
         });
-     openFile.addActionListener(new AbstractAction("Abrir") {
-                public void actionPerformed(ActionEvent ae) {
-                    try {
-                         if (selectedFile.isDirectory()) {               
-                        openDirectoryInNewWindow(selectedFile);
-                         }else if (isImageFile(selectedFile)) {
-                            openInImageViewer(selectedFile);
-                        }else if(isTextFile(selectedFile)) {
-                            openInTextEditor(selectedFile);
-                        } else if (isMP3File(selectedFile)) {
-                            addMP3ToPlaylist(selectedFile);
-                        } else {
-                            desktop.open(selectedFile);
-                        }
-                    } catch (Throwable t) {
-                        showThrowable(t);
-                    }
-                   
-                }
-            });
+     
 
     }
 
@@ -277,7 +256,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
 
         if (refresh == 0) {
             refresh++;
-            if (tipo.equals("admin")) {
+            if (tipo.equals("Default")) {
                 jTree1.setModel(new tipoArchivo(new File("Z")));
             } else {
                 jTree1.setModel(new tipoArchivo(new File("Z/" + nombre)));
@@ -357,7 +336,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
             }
 
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "ERROR (usualmente es por no seleccionar un folder)", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado un folder", "ERROR", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
@@ -365,7 +344,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
     private void refreshing() {
         switch (sort) {
             case "name":
-                if (tipo.equals("admin")) {
+                if (tipo.equals("Default")) {
                     nombre model = new nombre(new File("Z"));
                     model.refresh();
                     jTree1.setModel(model);
@@ -376,7 +355,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 }
                 break;
             case "date":
-                if (tipo.equals("admin")) {
+                if (tipo.equals("Default")) {
                     fechas model = new fechas(new File("Z"));
                     model.refresh();
                     jTree1.setModel(model);
@@ -387,7 +366,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 }
                 break;
             case "type":
-                if (tipo.equals("admin")) {
+                if (tipo.equals("Default")) {
                     tipo model = new tipo(new File("Z"));
                     model.refresh();
                     jTree1.setModel(model);
@@ -398,7 +377,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 }
                 break;
             case "size":
-                if (tipo.equals("admin")) {
+                if (tipo.equals("Default")) {
                     tamaño model = new tamaño(new File("Z"));
                     model.refresh();
                     jTree1.setModel(model);
@@ -409,7 +388,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 }
                 break;
             default:
-                if (tipo.equals("admin")) {
+                if (tipo.equals("Default")) {
                     tipoArchivo model = new tipoArchivo(new File("Z"));
                     model.refresh();
                     jTree1.setModel(model);
@@ -424,7 +403,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
    
     private void sortbyName() {
         sort = "name";
-        if (tipo.equals("admin")) {
+        if (tipo.equals("Default")) {
             jTree1.setModel(new nombre(new File("Z")));
         } else {
             jTree1.setModel(new nombre(new File("Z/" + nombre)));
@@ -434,7 +413,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
 
     private void sortbyDate() {
         sort = "date";
-        if (tipo.equals("admin")) {
+        if (tipo.equals("Default")) {
             jTree1.setModel(new fechas(new File("Z")));
         } else {
             jTree1.setModel(new fechas(new File("Z/" + nombre)));
@@ -443,7 +422,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
 
     private void SortbyType() {
         sort = "type";
-        if (tipo.equals("admin")) {
+        if (tipo.equals("Default")) {
             jTree1.setModel(new tipo(new File("Z")));
         } else {
             jTree1.setModel(new tipo(new File("Z/" + nombre)));
@@ -452,7 +431,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
 
     private void SortbySize() {
         sort = "size";
-        if (tipo.equals("admin")) {
+        if (tipo.equals("Default")) {
             jTree1.setModel(new tamaño(new File("Z")));
         } else {
             jTree1.setModel(new tamaño(new File("Z/" + nombre)));
@@ -486,87 +465,8 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
     }
 
     
-        private boolean isImageFile(File file) {
-        String fileName = file.getName().toLowerCase();
-        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ||
-               fileName.endsWith(".png") || fileName.endsWith(".gif") ||
-               fileName.endsWith(".bmp") || fileName.endsWith(".tiff");
-        }
-    
-        private boolean isTextFile(File file) {
-           return file.getName().toLowerCase().endsWith(".txt");
-       }
-     
-     
-            private boolean isMP3File(File file) {
-            String fileName = file.getName().toLowerCase();
-            return fileName.endsWith(".mp3");
-        }
-
+      
    
-            private void addMP3ToPlaylist(File mp3File) {
-            try {
-                ReproductorMusical.SoundPlayer spotify = new ReproductirMusical.SoundPlayer();
-                spotify.setVisible(true);
-                Inicio.pantalladeinicio.add(spotify);
-                spotify.toFront();
-                if (spotify != null) {
-                    
-                    spotify.pl.addSong(mp3File);
-                    
-                    spotify.updateList();
-
-                    if (spotify.a == 0) {
-                        spotify.putar();
-                    }
-                    
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-     private void openInTextEditor(File file) {
-        EditorTexto.Editortexto editor = new EditorTexto.Editortexto();
-        editor.setVisible(true);
-        editor.setTitle(file.getName());
-          WholeDesktop.add(editor);
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            editor.txt_area.read(fis, null);
-            fis.close();
-        } catch (IOException e) {
-
-        }
-
-        try {
-            editor.setSelected(true);
-        }catch(java.beans.PropertyVetoException e) {
-
-            e.printStackTrace();
-        }
-    }
-
-    private void openInImageViewer(File imageFile) {
-     try {
-         JInternalFrame internalFrame = new JInternalFrame("Imagen"+selectedFile.toString(), true, true, true, true);
-         internalFrame.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-         internalFrame.setBackground(Color.GRAY);
-         BufferedImage image = ImageIO.read(imageFile);
-         int initialWidth = 816;
-         int initialHeight = 504;
-         Image scaledImage = image.getScaledInstance(initialWidth, initialHeight, Image.SCALE_SMOOTH);
-         ImageIcon scaledIcon = new ImageIcon(scaledImage);
-         JLabel label = new JLabel(scaledIcon);
-         internalFrame.getContentPane().add(label, BorderLayout.CENTER);
-         internalFrame.setSize(initialWidth, initialHeight);
-         Inicio.pantalladeinicio.add(internalFrame);
-         internalFrame.toFront();
-         internalFrame.setVisible(true);
-     } catch (Exception e) {
-         System.out.println("No se pudo abrir el JInternalFrame: " + e.getMessage());
-     }
- }
         
     
     

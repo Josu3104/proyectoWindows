@@ -141,7 +141,7 @@ public class tipo implements TreeModel {
     public void pasteFile(File destinationFolder) throws IOException {
         if (copiedFile == null) {
             JOptionPane.showMessageDialog(null, "Error :(", "ERROR", JOptionPane.ERROR_MESSAGE);
-            System.out.println("PAIN AAA");
+          
             return;
         }
         if (!destinationFolder.isDirectory()) {

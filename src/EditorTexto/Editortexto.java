@@ -180,7 +180,7 @@ public class Editortexto extends javax.swing.JInternalFrame {
 
         jToolBar2.setRollover(true);
 
-        btn_guardar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\EditorTexto\\images\\save_2.png")); // NOI18N
+        btn_guardar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EditorTexto/images/save_2.png"))); // NOI18N
         btn_guardar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_guardar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_guardar1.addMouseListener(new java.awt.event.MouseAdapter() {

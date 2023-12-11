@@ -276,7 +276,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\irisa\OneDrive\Documentos\NetBeansProjects\Windows\src\imagessoundmusic\pause.png"/>
+                      <Image iconType="3" name="/imagessoundmusic/pause.png"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -287,7 +287,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\irisa\OneDrive\Documentos\NetBeansProjects\Windows\src\imagessoundmusic\play.png"/>
+                      <Image iconType="3" name="/imagessoundmusic/play.png"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -298,7 +298,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\irisa\OneDrive\Documentos\NetBeansProjects\Windows\src\imagessoundmusic\stop.png"/>
+                      <Image iconType="3" name="/imagessoundmusic/stop.png"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -314,7 +314,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\irisa\OneDrive\Documentos\NetBeansProjects\Windows\src\imagessoundmusic\volume_down.png"/>
+                      <Image iconType="3" name="/imagessoundmusic/volume_down.png"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -325,7 +325,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\irisa\OneDrive\Documentos\NetBeansProjects\Windows\src\imagessoundmusic\volume_up.png"/>
+                      <Image iconType="3" name="/imagessoundmusic/volume_up.png"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -336,7 +336,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\irisa\OneDrive\Documentos\NetBeansProjects\Windows\src\imagessoundmusic\volume_full.png"/>
+                      <Image iconType="3" name="/imagessoundmusic/volume_full.png"/>
                     </Property>
                   </Properties>
                   <Events>
@@ -347,7 +347,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\irisa\OneDrive\Documentos\NetBeansProjects\Windows\src\imagessoundmusic\mute.png"/>
+                      <Image iconType="3" name="/imagessoundmusic/mute.png"/>
                     </Property>
                   </Properties>
                   <Events>

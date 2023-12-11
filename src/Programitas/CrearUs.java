@@ -70,6 +70,7 @@ public class CrearUs extends javax.swing.JInternalFrame {
             }
         });
 
+        UserCreator.setBackground(new java.awt.Color(0, 102, 0));
         UserCreator.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -88,6 +89,8 @@ public class CrearUs extends javax.swing.JInternalFrame {
         UserCreator.add(US, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 217, -1));
         UserCreator.add(PASS, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 217, -1));
 
+        CreateUserFolders.setBackground(new java.awt.Color(0, 0, 0));
+        CreateUserFolders.setForeground(new java.awt.Color(255, 255, 255));
         CreateUserFolders.setText("Crear Usuario");
         CreateUserFolders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,19 +105,15 @@ public class CrearUs extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 659, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(UserCreator, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(UserCreator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 388, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(UserCreator, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(UserCreator, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)))
         );
 
         pack();
