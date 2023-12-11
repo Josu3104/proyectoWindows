@@ -37,6 +37,7 @@ public class X extends javax.swing.JInternalFrame {
      */
     Twitter Twitt = new Twitter();
     DefaultListModel<String> modeloLista = new DefaultListModel();
+    boolean picSelected;
 
     public X() {
 
@@ -54,14 +55,15 @@ public class X extends javax.swing.JInternalFrame {
         Login.setVisible(true);
         Registro.setVisible(false);
         LISTA.setVisible(false);
+        picSelected = false;
         try {
             initTimeline();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
-    public void initTimeline() throws IOException{
+
+    public void initTimeline() throws IOException {
         Twitt.mostrarTwitsGlobales(Timeline);
     }
 
@@ -841,26 +843,30 @@ public class X extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_AGEActionPerformed
 
     private void NEXT_REGISTROActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NEXT_REGISTROActionPerformed
-        char gender;
-        int edad = Integer.parseInt(AGE.getText());
-        if (GENDER.getSelectedIndex() == 0) {
-            gender = 'F';
+        if (!USERNAME.getText().isEmpty()&&picSelected) {
+            char gender;
+            int edad = Integer.parseInt(AGE.getText());
+            if (GENDER.getSelectedIndex() == 0) {
+                gender = 'F';
 
-        } else {
-            gender = 'M';
-        }
-
-        try {
-
-            if (Twitt.crearCuenta(FULLNAME.getText(), USERNAME.getText(), PASSWORD.getText(), gender, edad)) {
-                Registro.setVisible(false);
-                Login.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al crear la cuenta");
+                gender = 'M';
             }
 
-        } catch (IOException ex) {
-            System.out.println(ex.getCause());
+            try {
+
+                if (Twitt.crearCuenta(FULLNAME.getText(), USERNAME.getText(), PASSWORD.getText(), gender, edad)) {
+                    Registro.setVisible(false);
+                    Login.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error al crear la cuenta");
+                }
+
+            } catch (IOException ex) {
+                System.out.println(ex.getCause());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos primero");
         }
     }//GEN-LAST:event_NEXT_REGISTROActionPerformed
 
@@ -870,13 +876,14 @@ public class X extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_logOPTIONregistroActionPerformed
 
     private void ProfilePictureSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfilePictureSelectionActionPerformed
+picSelected = true;
         try {
             elegirPfp(USERNAME.getText());
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(X.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ProfilePictureSelectionActionPerformed
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         try {
             // TODO add your handling code here:
@@ -1019,7 +1026,7 @@ public class X extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_refreshPROFILEActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
-        Desktop.twitAdded=true;
+        Desktop.twitAdded = true;
         Desktop.contBotonTwit++;
     }//GEN-LAST:event_formInternalFrameClosed
 
