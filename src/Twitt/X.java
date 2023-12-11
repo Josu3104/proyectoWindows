@@ -795,7 +795,7 @@ public class X extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_USERActionPerformed
 
     private void loginNEXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginNEXTActionPerformed
-
+        if(!USER.getText().isEmpty()||!PASS.getText().isEmpty()){
         try {
             if (Twitt.iniciarSesion(USER.getText(), PASS.getText())) {
 
@@ -821,7 +821,9 @@ public class X extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
             System.out.println(ex.getCause());
         }
-
+        }else{
+            JOptionPane.showMessageDialog(null, "Llenar todos los campos");
+        }
 
     }//GEN-LAST:event_loginNEXTActionPerformed
 
