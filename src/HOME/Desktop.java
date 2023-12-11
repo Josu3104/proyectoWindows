@@ -7,13 +7,18 @@ package HOME;
 import BRAIN.FolderManager;
 import Explorador.ExploradorDeArchivos;
 import Programitas.CrearUs;
-import ReproductorMusical.Jtunes;
-import WORD.Editor;
+import ReproductorMusical.SoundPlayer;
+import EditorTexto.Editortexto;
+import CMD.cmd;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import visualizador.Media;
+import Visualizador.Medias;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
 
 /**
  *
@@ -32,31 +37,36 @@ public class Desktop extends javax.swing.JFrame {
     public static boolean tunesAdded;
     public static boolean userCreated;
     public static boolean wordAdded;
+    public static boolean cmdAdded;
+    public static boolean imagesAdded;
     public static int refresh = 0;
     public static String nombre;
     FolderManager L = new FolderManager(LoggedUser);
     int contBotonWin = 2;
+    public static int contBotonCmd= 2;
     public static int contBotonFiles = 2;
     public static int contBotonJtunes = 2;
     public static int contBotonWord = 2;
-    
-    Jtunes tunes;
+    public static int contBotonImages = 2;
+    SoundPlayer tunes;
     ExploradorDeArchivos files;
     CrearUs create;
-    Editor word;
-    Media img;
-
+    Editortexto word;
+    Medias img;
+    cmd Cmd;
     public Desktop() throws IOException {
         filesAdded = true;
         tunesAdded = true;
         userCreated = true;
         wordAdded = true;
-        
-         tunes = new Jtunes();
+        cmdAdded=true;
+        imagesAdded=true;
+        Cmd =new cmd() ;
+       tunes = new SoundPlayer();
         files =new ExploradorDeArchivos();
         create = new CrearUs();
-        word = new Editor();
-        img = new Media();
+        word = new Editortexto();
+        img = new Medias();
  
         initComponents();
 
@@ -67,10 +77,11 @@ public class Desktop extends javax.swing.JFrame {
         Login.setVisible(true);
         Login.setSize(1920, 1080);
 
-        tunes.setVisible(false);
+       tunes.setVisible(false);
 
         OPCWINBUTTON.setVisible(false);
-
+ actualizarHora();
+ actualizarFecha(); 
     }
 
     
@@ -91,40 +102,46 @@ public class Desktop extends javax.swing.JFrame {
         FILES = new javax.swing.JButton();
         JTUNES = new javax.swing.JButton();
         Word = new javax.swing.JButton();
-        MEDIA = new javax.swing.JButton();
+        MEDIA1 = new javax.swing.JButton();
+        CMD = new javax.swing.JButton();
+        Twitter = new javax.swing.JButton();
+        Hora = new javax.swing.JLabel();
+        Fecha = new javax.swing.JLabel();
         OPCWINBUTTON = new javax.swing.JPanel();
         CREARUSER = new javax.swing.JButton();
         OFF = new javax.swing.JButton();
         LOGOUT = new javax.swing.JButton();
         WIN = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         Login = new javax.swing.JPanel();
+        PASSFIELD = new javax.swing.JPasswordField();
+        salir = new javax.swing.JButton();
         LOGBTN = new javax.swing.JButton();
         USERFIELD = new javax.swing.JTextField();
         UsuarioLabel = new javax.swing.JLabel();
         ContraLabel1 = new javax.swing.JLabel();
-        PASSFIELD = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         WholeDesktop.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        BarraTareas.setBackground(new java.awt.Color(51, 51, 255));
+        BarraTareas.setBackground(new java.awt.Color(0, 0, 0));
         BarraTareas.setLayout(new java.awt.GridBagLayout());
 
-        FILES.setText("Files");
+        FILES.setBackground(new java.awt.Color(0, 0, 0));
+        FILES.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\exploradoricon_.jpg")); // NOI18N
         FILES.setPreferredSize(new java.awt.Dimension(80, 60));
         FILES.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FILESActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
-        BarraTareas.add(FILES, gridBagConstraints);
+        BarraTareas.add(FILES, new java.awt.GridBagConstraints());
 
-        JTUNES.setText("Jtunes");
+        JTUNES.setBackground(new java.awt.Color(0, 0, 0));
+        JTUNES.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\musicaicon_.jpg")); // NOI18N
         JTUNES.setToolTipText("MP3");
         JTUNES.setPreferredSize(new java.awt.Dimension(80, 60));
         JTUNES.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +154,8 @@ public class Desktop extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         BarraTareas.add(JTUNES, gridBagConstraints);
 
-        Word.setText("Word");
+        Word.setBackground(new java.awt.Color(0, 0, 0));
+        Word.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\_wordicon.jpg")); // NOI18N
         Word.setPreferredSize(new java.awt.Dimension(80, 60));
         Word.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,21 +167,52 @@ public class Desktop extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         BarraTareas.add(Word, gridBagConstraints);
 
-        MEDIA.setText("Media");
-        MEDIA.setPreferredSize(new java.awt.Dimension(80, 60));
-        MEDIA.addActionListener(new java.awt.event.ActionListener() {
+        MEDIA1.setBackground(new java.awt.Color(0, 0, 0));
+        MEDIA1.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\visor_.jpg")); // NOI18N
+        MEDIA1.setPreferredSize(new java.awt.Dimension(80, 60));
+        MEDIA1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MEDIAActionPerformed(evt);
+                MEDIA1ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
-        BarraTareas.add(MEDIA, gridBagConstraints);
+        BarraTareas.add(MEDIA1, gridBagConstraints);
+
+        CMD.setBackground(new java.awt.Color(0, 0, 0));
+        CMD.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\cmdicon_.jpg")); // NOI18N
+        CMD.setPreferredSize(new java.awt.Dimension(80, 60));
+        CMD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CMDActionPerformed(evt);
+            }
+        });
+        BarraTareas.add(CMD, new java.awt.GridBagConstraints());
+
+        Twitter.setBackground(new java.awt.Color(0, 0, 0));
+        Twitter.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\twitter.jpg")); // NOI18N
+        Twitter.setPreferredSize(new java.awt.Dimension(80, 60));
+        Twitter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TwitterActionPerformed(evt);
+            }
+        });
+        BarraTareas.add(Twitter, new java.awt.GridBagConstraints());
+
+        Hora.setText("00:00");
+        BarraTareas.add(Hora, new java.awt.GridBagConstraints());
+
+        Fecha.setText("0/0/0000");
+        BarraTareas.add(Fecha, new java.awt.GridBagConstraints());
 
         WholeDesktop.add(BarraTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, 1850, 60));
 
-        CREARUSER.setText("Crear Usuario");
+        OPCWINBUTTON.setBackground(new java.awt.Color(51, 51, 255));
+        OPCWINBUTTON.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        CREARUSER.setBackground(new java.awt.Color(0, 0, 0));
+        CREARUSER.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\nuevousuarios_.jpg")); // NOI18N
         CREARUSER.setPreferredSize(new java.awt.Dimension(160, 41));
         CREARUSER.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,14 +220,16 @@ public class Desktop extends javax.swing.JFrame {
             }
         });
 
-        OFF.setText("Apagar");
+        OFF.setBackground(new java.awt.Color(0, 0, 0));
+        OFF.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\apagaricon_.jpg")); // NOI18N
         OFF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OFFActionPerformed(evt);
             }
         });
 
-        LOGOUT.setText("Cerrar Sesion");
+        LOGOUT.setBackground(new java.awt.Color(0, 0, 0));
+        LOGOUT.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\saliricon_.jpg")); // NOI18N
         LOGOUT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LOGOUTActionPerformed(evt);
@@ -189,7 +240,7 @@ public class Desktop extends javax.swing.JFrame {
         OPCWINBUTTON.setLayout(OPCWINBUTTONLayout);
         OPCWINBUTTONLayout.setHorizontalGroup(
             OPCWINBUTTONLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CREARUSER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(CREARUSER, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
             .addComponent(OFF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(LOGOUT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -201,12 +252,14 @@ public class Desktop extends javax.swing.JFrame {
                 .addComponent(OFF, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LOGOUT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
-        WholeDesktop.add(OPCWINBUTTON, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 160, 290));
+        WholeDesktop.add(OPCWINBUTTON, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 160, 290));
 
-        WIN.setText("W");
+        WIN.setBackground(new java.awt.Color(0, 0, 0));
+        WIN.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\windosicon_.jpg")); // NOI18N
+        WIN.setToolTipText("");
         WIN.setPreferredSize(new java.awt.Dimension(80, 60));
         WIN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,32 +268,50 @@ public class Desktop extends javax.swing.JFrame {
         });
         WholeDesktop.add(WIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 70, -1));
 
-        getContentPane().add(WholeDesktop, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\wallpaper (1).jpg")); // NOI18N
+        WholeDesktop.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1860, 970));
+
+        getContentPane().add(WholeDesktop, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1710, 820));
 
         Login.setPreferredSize(new java.awt.Dimension(1920, 1080));
         Login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Login.add(PASSFIELD, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 330, 50));
 
-        LOGBTN.setText("Iniciar sesion");
+        salir.setBackground(new java.awt.Color(51, 51, 51));
+        salir.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\apagaricon_.jpg")); // NOI18N
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
+        Login.add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1720, 40, 110, 50));
+
+        LOGBTN.setBackground(new java.awt.Color(255, 255, 255));
+        LOGBTN.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        LOGBTN.setForeground(new java.awt.Color(0, 0, 0));
+        LOGBTN.setText("Iniciar sesión");
         LOGBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LOGBTNActionPerformed(evt);
             }
         });
-        Login.add(LOGBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 590, 120, 40));
-        Login.add(USERFIELD, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 400, 330, 50));
+        Login.add(LOGBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, 180, 40));
+        Login.add(USERFIELD, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 330, 50));
 
         UsuarioLabel.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        UsuarioLabel.setForeground(new java.awt.Color(0, 0, 0));
-        UsuarioLabel.setText("Usuario");
-        Login.add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 400, 100, 50));
+        UsuarioLabel.setForeground(new java.awt.Color(255, 255, 255));
+        UsuarioLabel.setText("Usuario:");
+        Login.add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 100, 50));
 
         ContraLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        ContraLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        ContraLabel1.setText("Contraseña");
-        Login.add(ContraLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 470, 100, 50));
-        Login.add(PASSFIELD, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 470, 330, 50));
+        ContraLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        ContraLabel1.setText("Contraseña:");
+        Login.add(ContraLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 100, 50));
 
-        getContentPane().add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\irisa\\OneDrive\\Documentos\\NetBeansProjects\\Windows\\src\\ImagenesDesktop\\wallpaper.jpg")); // NOI18N
+        Login.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1700, 940));
+
+        getContentPane().add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 1860, 1020));
 
         pack();
         setLocationRelativeTo(null);
@@ -328,15 +399,23 @@ public class Desktop extends javax.swing.JFrame {
         userCreated = false;
     }//GEN-LAST:event_CREARUSERActionPerformed
 
-    private void MEDIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEDIAActionPerformed
-//       try{
-//           WholeDesktop.add(img);
-//           
-//       }catch(Exception e){
-//           System.out.println(e.getMessage());
-//       }
-//       img.setVisible(true);
-    }//GEN-LAST:event_MEDIAActionPerformed
+    private void CMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CMDActionPerformed
+         if (cmdAdded) {
+            try {
+                WholeDesktop.add(Cmd);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (contBotonCmd % 2 == 1) {
+            Cmd.setVisible(false);
+        } else {
+            Cmd.setVisible(true);
+        }
+
+        contBotonCmd++;
+        cmdAdded = false;
+    }//GEN-LAST:event_CMDActionPerformed
 
     private void ArbFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTree1FocusGained
 
@@ -351,7 +430,7 @@ public class Desktop extends javax.swing.JFrame {
         files.tipo = this.USERFIELD.getText();
 
         try {
-            if ((LoggedUser.equals("admin") && pass.equals("admin"))||create.LogInAcc(LoggedUser,pass)) {
+            if ((LoggedUser.equals("Default") && pass.equals("Default"))||create.LogInAcc(LoggedUser,pass)) {
                 Login.setVisible(false);
                 USERFIELD.setText("");
                 PASSFIELD.setText("");
@@ -375,7 +454,6 @@ public class Desktop extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
             }
         }
-
         if (contBotonWord % 2 == 1) {
             word.setVisible(false);
         } else {
@@ -384,6 +462,31 @@ public class Desktop extends javax.swing.JFrame {
         contBotonWord++;
         wordAdded = false;
     }//GEN-LAST:event_WordActionPerformed
+
+    private void MEDIA1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MEDIA1ActionPerformed
+        if (imagesAdded) {
+            try {
+                WholeDesktop.add(img);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (contBotonImages % 2 == 1) {
+            img.setVisible(false);
+        } else {
+            img.setVisible(true);
+        }
+        contBotonImages++;
+        imagesAdded = false;
+    }//GEN-LAST:event_MEDIA1ActionPerformed
+
+    private void TwitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TwitterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TwitterActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+      System.exit(0);
+    }//GEN-LAST:event_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -425,25 +528,50 @@ public class Desktop extends javax.swing.JFrame {
             }
         });
     }
+ private void actualizarHora() {
+        Timer timer = new Timer(1000, (ActionEvent e) -> {
+            Date ahora = new Date();
+            SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+            String horaFormateada = formatoHora.format(ahora);
+            Hora.setText(horaFormateada);
+        });
+        timer.start();
+    }
 
+    private void actualizarFecha() {
+        Timer timer = new Timer(1000, (ActionEvent e) -> {
+            Date dia = new Date();
+            SimpleDateFormat formatoDia = new SimpleDateFormat("dd/MM/yyyy");
+            String diaactual = formatoDia.format(dia);
+            Fecha.setText(diaactual);
+        });
+        timer.start();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraTareas;
+    private javax.swing.JButton CMD;
     private javax.swing.JButton CREARUSER;
     private javax.swing.JLabel ContraLabel1;
     private javax.swing.JButton FILES;
+    private javax.swing.JLabel Fecha;
+    private javax.swing.JLabel Hora;
     private javax.swing.JButton JTUNES;
     private javax.swing.JButton LOGBTN;
     private javax.swing.JButton LOGOUT;
     private javax.swing.JPanel Login;
-    private javax.swing.JButton MEDIA;
+    private javax.swing.JButton MEDIA1;
     private javax.swing.JButton OFF;
     private javax.swing.JPanel OPCWINBUTTON;
-    private javax.swing.JTextField PASSFIELD;
+    private javax.swing.JPasswordField PASSFIELD;
+    private javax.swing.JButton Twitter;
     private javax.swing.JTextField USERFIELD;
     private javax.swing.JLabel UsuarioLabel;
     private javax.swing.JButton WIN;
     private javax.swing.JDesktopPane WholeDesktop;
     private javax.swing.JButton Word;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 }

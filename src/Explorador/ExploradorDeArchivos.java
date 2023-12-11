@@ -9,8 +9,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import HOME.Desktop;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -37,18 +47,21 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
     String sort = "Default";
 
     public ExploradorDeArchivos() {
-        File rootDirectory = new File("/");
+        File rootDirectory = new File("/Z");
         fileSystemModel = new tipoArchivo(rootDirectory);
         Name = new nombre(rootDirectory);
         Date = new fechas(rootDirectory);
         Type = new tipo(rootDirectory);
         Size = new tamaño(rootDirectory);
         initComponents();
+        
 
         JMenuItem copyItem = new JMenuItem("Copiar");
         JMenuItem cutItem = new JMenuItem("Cortar");
         JMenuItem pasteItem = new JMenuItem("Pegar");
         JMenuItem rename = new JMenuItem("Renombrar");
+         JMenuItem openFile = new JMenuItem("Abrir con Editor de Texto");
+
         JMenuItem refreshyep = new JMenuItem("Refrescar");
         JMenuItem createfile = new JMenuItem("Nuevo Archivo");
         JMenuItem createfolder = new JMenuItem("Nuevo Folder");
@@ -57,6 +70,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
         JMenuItem sortDate = new JMenuItem("Ver por Fecha");
         JMenuItem sortType = new JMenuItem("Ver por Tipo");
         JMenuItem sortSize = new JMenuItem("Ver por Tamaño");
+        popupMenu.add(openFile);
         popupMenu.add(copyItem);
         popupMenu.add(cutItem);
         popupMenu.add(pasteItem);
@@ -175,6 +189,26 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 SortbySize();
             }
         });
+     openFile.addActionListener(new AbstractAction("Abrir") {
+                public void actionPerformed(ActionEvent ae) {
+                    try {
+                         if (selectedFile.isDirectory()) {               
+                        openDirectoryInNewWindow(selectedFile);
+                         }else if (isImageFile(selectedFile)) {
+                            openInImageViewer(selectedFile);
+                        }else if(isTextFile(selectedFile)) {
+                            openInTextEditor(selectedFile);
+                        } else if (isMP3File(selectedFile)) {
+                            addMP3ToPlaylist(selectedFile);
+                        } else {
+                            desktop.open(selectedFile);
+                        }
+                    } catch (Throwable t) {
+                        showThrowable(t);
+                    }
+                   
+                }
+            });
 
     }
 
@@ -387,7 +421,7 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
                 break;
         }
     }
-
+   
     private void sortbyName() {
         sort = "name";
         if (tipo.equals("admin")) {
@@ -451,6 +485,96 @@ public class ExploradorDeArchivos extends javax.swing.JInternalFrame {
 
     }
 
+    
+        private boolean isImageFile(File file) {
+        String fileName = file.getName().toLowerCase();
+        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ||
+               fileName.endsWith(".png") || fileName.endsWith(".gif") ||
+               fileName.endsWith(".bmp") || fileName.endsWith(".tiff");
+        }
+    
+        private boolean isTextFile(File file) {
+           return file.getName().toLowerCase().endsWith(".txt");
+       }
+     
+     
+            private boolean isMP3File(File file) {
+            String fileName = file.getName().toLowerCase();
+            return fileName.endsWith(".mp3");
+        }
+
+   
+            private void addMP3ToPlaylist(File mp3File) {
+            try {
+                ReproductorMusical.SoundPlayer spotify = new ReproductirMusical.SoundPlayer();
+                spotify.setVisible(true);
+                Inicio.pantalladeinicio.add(spotify);
+                spotify.toFront();
+                if (spotify != null) {
+                    
+                    spotify.pl.addSong(mp3File);
+                    
+                    spotify.updateList();
+
+                    if (spotify.a == 0) {
+                        spotify.putar();
+                    }
+                    
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+     private void openInTextEditor(File file) {
+        EditorTexto.Editortexto editor = new EditorTexto.Editortexto();
+        editor.setVisible(true);
+        editor.setTitle(file.getName());
+          WholeDesktop.add(editor);
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            editor.txt_area.read(fis, null);
+            fis.close();
+        } catch (IOException e) {
+
+        }
+
+        try {
+            editor.setSelected(true);
+        }catch(java.beans.PropertyVetoException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private void openInImageViewer(File imageFile) {
+     try {
+         JInternalFrame internalFrame = new JInternalFrame("Imagen"+selectedFile.toString(), true, true, true, true);
+         internalFrame.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+         internalFrame.setBackground(Color.GRAY);
+         BufferedImage image = ImageIO.read(imageFile);
+         int initialWidth = 816;
+         int initialHeight = 504;
+         Image scaledImage = image.getScaledInstance(initialWidth, initialHeight, Image.SCALE_SMOOTH);
+         ImageIcon scaledIcon = new ImageIcon(scaledImage);
+         JLabel label = new JLabel(scaledIcon);
+         internalFrame.getContentPane().add(label, BorderLayout.CENTER);
+         internalFrame.setSize(initialWidth, initialHeight);
+         Inicio.pantalladeinicio.add(internalFrame);
+         internalFrame.toFront();
+         internalFrame.setVisible(true);
+     } catch (Exception e) {
+         System.out.println("No se pudo abrir el JInternalFrame: " + e.getMessage());
+     }
+ }
+        
+    
+    
+    
+    
+    
+    
+    
     private void newFolder(File file) throws IOException {
         switch (sort) {
             case "name":
